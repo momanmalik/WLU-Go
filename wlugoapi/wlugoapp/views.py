@@ -4,16 +4,14 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
+from rest_framework import viewsets
 
 from .models import User, Course, Rating, Review, Professor, Professor_course
 from .serializers import  UserSerializer, CourseSerializer, RatingSerializer, ReviewSerializer, ProfessorSerializer, Professor_courseSerializer
 
-class UserListView(
-  APIView, # Basic View class provided by the Django Rest Framework
-  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
-  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
-):
-
+class UserListView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class =  UserSerializer
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the user item by that id
@@ -61,7 +59,7 @@ class UserListView(
     def put(self, request, id=None):
         try:
             # Check if the user item the user wants to update exists
-            user_item = User.objects.get(id=id)
+            user_item = User.objects.get(user_id=id)
         except User.DoesNotExist:
         # If the user item does not exist, return an error response
             return Response({'errors': 'This user item does not exist.'}, status=400)
@@ -103,12 +101,9 @@ class UserListView(
 # Course Table View Requests 
 
 
-class CourseListView(
-  APIView, # Basic View class provided by the Django Rest Framework
-  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
-  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
-):
-
+class CourseListView(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class =  CourseSerializer
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the user item by that id
@@ -197,12 +192,9 @@ class CourseListView(
 # Rating Request 
 
 
-class RatingListView(
-  APIView, # Basic View class provided by the Django Rest Framework
-  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
-  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
-):
-
+class RatingListView(viewsets.ModelViewSet):
+    queryset = Rating.objects.all()
+    serializer_class =  RatingSerializer
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the user item by that id
@@ -290,12 +282,9 @@ class RatingListView(
 
 # Add endpoints for the review table 
 
-class ReviewListView(
-  APIView, # Basic View class provided by the Django Rest Framework
-  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
-  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
-):
-
+class ReviewListView(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the review item by that id
@@ -383,12 +372,9 @@ class ReviewListView(
 
 
 
-class ProfessorListView(
-  APIView, # Basic View class provided by the Django Rest Framework
-  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
-  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
-):
-
+class ProfessorListView(viewsets.ModelViewSet):
+    queryset = Professor.objects.all()
+    serializer_class =  ProfessorSerializer
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the professor item by that id
@@ -476,12 +462,9 @@ class ProfessorListView(
 
 
 
-class Professor_courseListView(
-  APIView, # Basic View class provided by the Django Rest Framework
-  UpdateModelMixin, # Mixin that allows the basic APIView to handle PUT HTTP requests
-  DestroyModelMixin, # Mixin that allows the basic APIView to handle DELETE HTTP requests
-):
-
+class Professor_courseListView(viewsets.ModelViewSet):
+    queryset = Professor_course.objects.all()
+    serializer_class =  Professor_courseSerializer
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the professor_course item by that id

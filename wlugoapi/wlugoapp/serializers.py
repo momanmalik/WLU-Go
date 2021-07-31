@@ -240,3 +240,17 @@ class Professor_courseSerializer(serializers.ModelSerializer):
             'course_id',
     )
 
+'''
+{
+"user_id":98765,
+"email" : "testuser@gmail.com",
+"password" : "password",
+"first_name" : "tester1",
+"last_name" : "tester1",
+"program" : "Comp Sci",
+"graduating_year" : 2098,
+"has_access" : "True",
+"is_mod" : "False",
+"is_admin  : "False"
+}
+'''
