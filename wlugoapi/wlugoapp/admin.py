@@ -9,6 +9,7 @@ from .models import Professor
 from .models import Professor_course
 from .models import Review
 
+
 # this class define which department columns will be shown in the department admin web site.
 class UserAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
@@ -53,3 +54,4 @@ class Professor_courseAdmin(admin.ModelAdmin):
     list_display = ['professor_id','course_id']
 
 admin.site.register(Professor_course, Professor_courseAdmin)
+

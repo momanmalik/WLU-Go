@@ -17,7 +17,7 @@ class UserListView(viewsets.ModelViewSet):
         # If an id is provided in the GET request, retrieve the user item by that id
             try:
                 # Check if the user item the user wants to update exists
-                queryset = User.objects.get(user_id=id)
+                queryset = User.objects.get(email=id)
             except User.DoesNotExist:
                 # If the user item does not exist, return an error response
                 return Response({'errors': 'This user item does not exist.'}, status=400)
@@ -59,7 +59,7 @@ class UserListView(viewsets.ModelViewSet):
     def put(self, request, id=None):
         try:
             # Check if the user item the user wants to update exists
-            user_item = User.objects.get(user_id=id)
+            user_item = User.objects.get(email=id)
         except User.DoesNotExist:
         # If the user item does not exist, return an error response
             return Response({'errors': 'This user item does not exist.'}, status=400)

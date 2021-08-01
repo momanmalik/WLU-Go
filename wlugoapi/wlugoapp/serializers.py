@@ -240,6 +240,9 @@ class Professor_courseSerializer(serializers.ModelSerializer):
             'course_id',
     )
 
+
+
+
 '''
 {
 "user_id":98765,
