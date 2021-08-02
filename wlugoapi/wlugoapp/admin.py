@@ -21,30 +21,29 @@ admin.site.register(User, UserAdmin)
 # this class define which department columns will be shown in the department admin web site.
 class RatingAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['rating_id','birdness','usefulness','enjoyability']
+    list_display = ['rating_id','user_id','course_id','birdness','usefulness','enjoyability',
+    'grade','mean_user_score','term_taken','date_time_created']
 
 admin.site.register(Rating, RatingAdmin)
 
 # this class define which department columns will be shown in the department admin web site.
 class CourseAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['course_id','code','name','description','department','rating_id', 'score',
-    'mean_grade']
+    list_display = ['course_id','code','name','description','department']
 
 admin.site.register(Course, CourseAdmin)
 
 # this class define which department columns will be shown in the department admin web site.
 class ReviewAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['review_id','user_id','course_id','body','rating_id','grade','professor_id',
-        'term_taken','date_time_created']
+    list_display = ['review_id','user_id','course_id','rating_id','body','date_time_created']
 
 admin.site.register(Review, ReviewAdmin)
 
 # this class define which department columns will be shown in the department admin web site.
 class ProfessorAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['professor_id','first_name','last_name']
+    list_display = ['professor_id','name']
 
 admin.site.register(Professor, ProfessorAdmin)
 

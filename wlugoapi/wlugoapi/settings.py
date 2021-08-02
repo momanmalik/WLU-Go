@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'wlugoapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'NafApiTestDb',
+        'NAME': 'GOAPI',
         'USER': 'admin',
         'PASSWORD': 'password',
         'HOST': 'wlugo-db.cybnzrq6anqj.us-east-2.rds.amazonaws.com',
