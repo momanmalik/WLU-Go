@@ -1,13 +1,10 @@
 from django.shortcuts import render
-
 # Create your views here.
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
 from rest_framework import viewsets
-
 from .models import User, Course, Rating, Review, Professor, Professor_course
 from .serializers import  UserSerializer, CourseSerializer, RatingSerializer, ReviewSerializer, ProfessorSerializer, Professor_courseSerializer
+
 
 class UserListView(viewsets.ModelViewSet):
     queryset = User.objects.all()

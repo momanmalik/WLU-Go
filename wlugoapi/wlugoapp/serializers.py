@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import Review, User, Course, Rating, Professor, Professor_course
-
+from django.contrib.auth.hashers import make_password
 
 class UserSerializer(serializers.ModelSerializer):
     user_id = serializers.UUIDField()

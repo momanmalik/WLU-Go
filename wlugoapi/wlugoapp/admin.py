@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
 admin.site.site_header = 'WLU GO DB Administration'
 # Register your models here.
@@ -53,4 +54,3 @@ class Professor_courseAdmin(admin.ModelAdmin):
     list_display = ['professor_id','course_id']
 
 admin.site.register(Professor_course, Professor_courseAdmin)
-

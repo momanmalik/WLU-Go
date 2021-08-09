@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
 import os
 import django_heroku
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,8 +40,17 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'wlugoapp.apps.WlugoappConfig',
-    
+    'rest_framework_simplejwt', 
+    'rest_auth',
+    'django.contrib.sites',
+    'rest_framework.authtoken',
+    'rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
+SECURE_SSL_REDIRECT = False
+SITE_ID=1
 #wlugoapp.apps.WlugoappConfig
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +64,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'wlugoapi.urls'
+REST_USE_JWT = True
 
 TEMPLATES = [
     {
@@ -92,7 +101,63 @@ DATABASES = {
 
 # makemigrations requires this for some reason or it errors
 # Just set to the default value
-OAUTH2_PROVIDER_APPLICATION_MODEL = 'oauth2_provider.Application'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': None,
+    'PAGE_SIZE': 20000,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FileUploadParser',
+        'rest_framework.parsers.FormParser',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+}
+
+#AUTH_USER_MODEL = "wlugoapp.User"
 
 # tell django where to put the oauth2 migrations
 MIGRATION_MODULES = {
@@ -100,7 +165,7 @@ MIGRATION_MODULES = {
   'oauth2_provider': 'wlugoapp.migrations.oauth2_provider',
 }
 
-# Password validation
+# Pas'''sword validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -138,8 +203,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000',
+    'https://web.postman.co'
 ]
 # Activate Django-Heroku.
 django_heroku.settings(locals())
