@@ -1,11 +1,11 @@
 from django.shortcuts import render
-# Create your views here.
 from rest_framework.response import Response
 from rest_framework import viewsets
-from .models import User, Course, Rating, Review, Professor, Professor_course
-from .serializers import  UserSerializer, CourseSerializer, RatingSerializer, ReviewSerializer, ProfessorSerializer, Professor_courseSerializer
+from .models import  Course, Rating, Professor, Professor_course
+from .serializers import CourseSerializer, RatingSerializer, ProfessorSerializer, Professor_courseSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
-
+'''
 class UserListView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class =  UserSerializer
@@ -94,13 +94,16 @@ class UserListView(viewsets.ModelViewSet):
         # Return a HTTP response notifying that the user item was successfully deleted
         return Response(status=204)
 
-
-# Course Table View Requests 
+'''
+# Course Table View Requests
 
 
 class CourseListView(viewsets.ModelViewSet):
     queryset = Course.objects.all()
+    many = True
     serializer_class =  CourseSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['code', 'course_id','name']
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the user item by that id
@@ -186,12 +189,14 @@ class CourseListView(viewsets.ModelViewSet):
         # Return a HTTP response notifying that the user item was successfully deleted
         return Response(status=204)
 
-# Rating Request 
+# Rating Request
 
 
 class RatingListView(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class =  RatingSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['course_id', 'rating_id']
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the user item by that id
@@ -277,8 +282,8 @@ class RatingListView(viewsets.ModelViewSet):
         # Return a HTTP response notifying that the user item was successfully deleted
         return Response(status=204)
 
-# Add endpoints for the review table 
-
+# Add endpoints for the review table
+'''
 class ReviewListView(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -367,7 +372,7 @@ class ReviewListView(viewsets.ModelViewSet):
         # Return a HTTP response notifying that the review item was successfully deleted
         return Response(status=204)
 
-
+'''
 
 class ProfessorListView(viewsets.ModelViewSet):
     queryset = Professor.objects.all()
@@ -546,4 +551,3 @@ class Professor_courseListView(viewsets.ModelViewSet):
 
         # Return a HTTP response notifying that the professor_course item was successfully deleted
         return Response(status=204)
-

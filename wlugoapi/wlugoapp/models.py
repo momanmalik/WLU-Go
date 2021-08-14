@@ -1,7 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 import uuid
 # Create your models here.
-
+"""
 class User(models.Model):
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.CharField(max_length=20)
@@ -13,6 +14,7 @@ class User(models.Model):
     has_access = models.BooleanField()
     is_mod = models.BooleanField()
     is_admin = models.BooleanField()
+"""
 
 class Course(models.Model):
     course_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -21,30 +23,33 @@ class Course(models.Model):
     description = models.TextField()
     department = models.CharField(max_length = 20)
 
+
 class Rating(models.Model):
-    rating_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE) 
-    course_id = models.ForeignKey(Course, on_delete = models.CASCADE) 
+    rating_id = models.CharField(primary_key=True, max_length=60, editable=False)
+    user_id = models.CharField(max_length=60)
+    course_id = models.CharField(max_length=60)
     birdness = models.IntegerField()
     usefulness = models.IntegerField()
     enjoyability = models.IntegerField()
     grade = models.CharField(max_length = 3)
-    mean_user_score = models.FloatField()
+    mean_user_score = models.IntegerField()
     term_taken = models.CharField(max_length=20)
-    date_time_created = models.DateTimeField()
+    review = models.TextField(default='')
 
 class Professor(models.Model):
     professor_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=20)
 
-class Professor_course(models.Model): 
-    professor_id = models.ForeignKey(Professor, on_delete = models.CASCADE) 
-    course_id =models.ForeignKey(Course, on_delete = models.CASCADE) 
+class Professor_course(models.Model):
+    professor_id = models.UUIDField()
+    course_id =  models.UUIDField()
 
+"""
 class Review(models.Model):
     review_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE) 
-    course_id = models.ForeignKey(Course, on_delete = models.CASCADE) 
-    rating_id = models.ForeignKey(Rating, on_delete = models.CASCADE) 
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+    course_id = models.ForeignKey(Course, on_delete = models.CASCADE)
+    rating_id = models.ForeignKey(Rating, on_delete = models.CASCADE)
     body = models.TextField()
     date_time_created = models.DateTimeField()
+"""

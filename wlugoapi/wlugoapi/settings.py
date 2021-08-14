@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'wlugoapp.apps.WlugoappConfig',
-    'rest_framework_simplejwt', 
+    'rest_framework_simplejwt',
     'rest_auth',
     'django.contrib.sites',
     'rest_framework.authtoken',
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_filters',
 ]
 SECURE_SSL_REDIRECT = False
 SITE_ID=1
@@ -91,7 +92,7 @@ WSGI_APPLICATION = 'wlugoapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GOAPI',
+        'NAME': 'WLUGOAPI',
         'USER': 'admin',
         'PASSWORD': 'password',
         'HOST': 'wlugo-db.cybnzrq6anqj.us-east-2.rds.amazonaws.com',
@@ -103,7 +104,7 @@ DATABASES = {
 # Just set to the default value
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=28),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -211,5 +212,6 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://web.postman.co'
 ]
+# A
 # Activate Django-Heroku.
 django_heroku.settings(locals())

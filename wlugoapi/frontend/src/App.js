@@ -12,7 +12,7 @@ import Profile from "./components/profile";
 import Search from "./components/search";
 import Reviews from "./components/results";
 import Details from "./components/user_profile";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (<Router>
     <div className="App">
@@ -39,7 +39,6 @@ function App() {
               <li className="nav-item">
             <Link className="nav-link" to={"user_data"}><FaUser/> </Link>
               </li>
-              
             </ul>
           </div>
         </div>
@@ -56,13 +55,9 @@ function App() {
             <Route path="/user_data" component={Details} />
           </Switch>
         </div>
-      </div>
-      
+      </div>   
     </div>
-    
     </Router>
-    
   );
 }
-
 export default App;

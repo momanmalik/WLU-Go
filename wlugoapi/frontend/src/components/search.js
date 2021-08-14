@@ -3,7 +3,10 @@ import Select from 'react-select'
 import axios from 'axios'
 import AuthService from "../services/auth-service";
 import { Redirect } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
+import { View } from 'react-router-dom';
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
 import "../index.css"
 
 
@@ -42,12 +45,19 @@ export default class Search extends Component {
 
   handleChange(e){
    this.setState({id:e.value, name:e.label})
+
   }
 
   componentDidMount(){
       this.getOptions()
   }
 
+  renderElement(){
+    if(this.state.name !== '')
+       return <Link to={{pathname: "/reviews",state: this.state.name }}>
+          <div className="button-search"><AwesomeButton type="primary">Proceed</AwesomeButton></div></Link>;
+    return null;
+ }
   render() {
     console.log(this.state.selectOptions)
     return (
@@ -56,7 +66,8 @@ export default class Search extends Component {
           Select a course at Laurier: 
           <div></div>
         <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
-          <p>You have selected <strong>{this.state.name}</strong></p>
+        <p>You have selected <strong>{this.state.name}</strong></p>
+        {this.renderElement()}
       </div>
       
     );

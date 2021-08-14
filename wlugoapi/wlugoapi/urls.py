@@ -18,10 +18,10 @@ from django.urls import path,include
 from rest_framework import routers
 from wlugoapp import views
 router = routers.DefaultRouter()
-router.register(r'users', views.UserListView, 'users')
+#router.register(r'users', views.UserListView, 'users')
 router.register(r'courses', views.CourseListView, 'courses')
-router.register(r'ratings', views.RatingListView, 'register')
-router.register(r'reviews', views.ReviewListView, 'reviews')
+router.register(r'ratings', views.RatingListView, 'ratings')
+#router.register(r'reviews', views.ReviewListView, 'reviews')
 router.register(r'professors', views.ProfessorListView, 'professors')
 router.register(r'professor_course', views.Professor_courseListView, 'professor_course')
 from rest_framework_simplejwt.views import (
@@ -38,4 +38,3 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
 ]
-

@@ -1,8 +1,9 @@
 from rest_framework import serializers
-
-from .models import Review, User, Course, Rating, Professor, Professor_course
+from django.contrib.auth.models import User
+from .models import Course, Rating, Professor, Professor_course
 from django.contrib.auth.hashers import make_password
 
+'''
 class UserSerializer(serializers.ModelSerializer):
     user_id = serializers.UUIDField()
     email = serializers.CharField()
@@ -51,7 +52,7 @@ class UserSerializer(serializers.ModelSerializer):
         'is_mod',
         'is_admin'
     )
-
+'''
 
 class CourseSerializer(serializers.ModelSerializer):
     course_id = serializers.UUIDField()
@@ -62,14 +63,14 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
     # Once the request data has been validated, we can create a todo item instance in the database
-        return Course.objects.create(
+            return Course.objects.create(
             course_id =  validated_data.get('course_id'),
             code = validated_data.get('code'),
             name = validated_data.get('name'),
             description = validated_data.get('description'),
             department = validated_data.get('department'),
 
-    )
+            )
 
     def update(self, instance, validated_data):
      # Once the request data has been validated, we can update the todo item instance in the database
@@ -91,16 +92,16 @@ class CourseSerializer(serializers.ModelSerializer):
     )
 
 class RatingSerializer(serializers.ModelSerializer):
-    rating_id = serializers.UUIDField()
-    user_id = User.user_id
-    course_id = Course.course_id
+    rating_id = serializers.CharField()
+    user_id = serializers.CharField()
+    course_id = serializers.CharField()
     birdness = serializers.IntegerField()
     usefulness = serializers.IntegerField()
     enjoyability = serializers.IntegerField()
     grade =  serializers.CharField()
-    mean_user_score = serializers.FloatField()
+    mean_user_score = serializers.IntegerField()
     term_taken = serializers.CharField()
-    date_time_created = serializers.DateTimeField()
+    review = serializers.CharField()
 
     def create(self, validated_data):
     # Once the request data has been validated, we can create a todo item instance in the database
@@ -113,8 +114,8 @@ class RatingSerializer(serializers.ModelSerializer):
             enjoyability = validated_data.get('enjoyability'),
             grade = validated_data.get('grade'),
             mean_user_score = validated_data.get('mean_user_score'),
+            review =validated_data.get('review'),
             term_taken = validated_data.get('term_taken'),
-            date_time_created = validated_data.get('date_time_created')
     )
 
     def update(self, instance, validated_data):
@@ -125,7 +126,7 @@ class RatingSerializer(serializers.ModelSerializer):
         instance.grade = validated_data.get('grade',instance.grade),
         instance.mean_user_score = validated_data.get('mean_user_score',instance.mean_user_score),
         instance.term_taken = validated_data.get('term_taken',instance.term_taken),
-        instance.date_time_created = validated_data.get('date_time_created',instance.date_time_created),
+        instance.review = validated_data.get('review',instance.review),
         instance.save()
         return instance
 
@@ -141,9 +142,9 @@ class RatingSerializer(serializers.ModelSerializer):
             'grade',
             'mean_user_score',
             'term_taken',
-            'date_time_created'
+            'review',
     )
-
+'''
 class ReviewSerializer(serializers.ModelSerializer):
     review_id = serializers.UUIDField()
     user_id = User.user_id
@@ -160,7 +161,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             course_id = validated_data.get('course_id'),
             rating_id = validated_data.get('rating_id'),
             body = validated_data.get('body'),
-            date_time_created = validated_data.get('date_time_created')   
+            date_time_created = validated_data.get('date_time_created')
         )
 
     def update(self, instance, validated_data):
@@ -180,7 +181,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         'body',
         'date_time_created'
     )
-        
+'''
 
 class ProfessorSerializer(serializers.ModelSerializer):
     professor_id = serializers.UUIDField()
@@ -207,8 +208,8 @@ class ProfessorSerializer(serializers.ModelSerializer):
         )
 
 class Professor_courseSerializer(serializers.ModelSerializer):
-    professor_id = Professor.professor_id
-    course_id = Course.course_id
+    professor_id = serializers.UUIDField()
+    course_id =  serializers.UUIDField()
 
     def create(self, validated_data):
     # Once the request data has been validated, we can create a todo item instance in the database

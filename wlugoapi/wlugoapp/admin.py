@@ -3,14 +3,14 @@ from django.contrib.auth.admin import UserAdmin
 
 admin.site.site_header = 'WLU GO DB Administration'
 # Register your models here.
-from .models import Rating 
+from .models import Rating
 from .models import Course
-from .models import User
+#from .models import User
 from .models import Professor
 from .models import Professor_course
-from .models import Review
+#from .models import Review
 
-
+'''
 # this class define which department columns will be shown in the department admin web site.
 class UserAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
@@ -18,12 +18,12 @@ class UserAdmin(admin.ModelAdmin):
     'graduating_year','has_access','is_mod','is_admin']
 
 admin.site.register(User, UserAdmin)
-
+'''
 # this class define which department columns will be shown in the department admin web site.
 class RatingAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
     list_display = ['rating_id','user_id','course_id','birdness','usefulness','enjoyability',
-    'grade','mean_user_score','term_taken','date_time_created']
+    'grade','mean_user_score','term_taken','review']
 
 admin.site.register(Rating, RatingAdmin)
 
@@ -34,13 +34,14 @@ class CourseAdmin(admin.ModelAdmin):
 
 admin.site.register(Course, CourseAdmin)
 
+'''
 # this class define which department columns will be shown in the department admin web site.
 class ReviewAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
     list_display = ['review_id','user_id','course_id','rating_id','body','date_time_created']
 
 admin.site.register(Review, ReviewAdmin)
-
+'''
 # this class define which department columns will be shown in the department admin web site.
 class ProfessorAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
