@@ -196,7 +196,7 @@ class RatingListView(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class =  RatingSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['course_id', 'rating_id']
+    filterset_fields = ['course_id', 'rating_id','user_id']
     def get(self, request, id=None):
         if id:
         # If an id is provided in the GET request, retrieve the user item by that id

@@ -25,6 +25,7 @@ class RatingAdmin(admin.ModelAdmin):
     list_display = ['rating_id','user_id','course_id','birdness','usefulness','enjoyability',
     'grade','mean_user_score','term_taken','review']
 
+
 admin.site.register(Rating, RatingAdmin)
 
 # this class define which department columns will be shown in the department admin web site.
